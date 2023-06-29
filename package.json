@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/belactriple9/Uni-GLP-Proposal"
+    "url": "git+https://github.com/Voltz-Protocol/uniswap_proposal_simulation.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/belactriple9/Uni-GLP-Proposal/issues"
+    "url": "https://github.com/Voltz-Protocol/uniswap_proposal_simulation/issues"
   },
-  "homepage": "https://github.com/belactriple9/Uni-GLP-Proposal#readme",
+  "homepage": "https://github.com/Voltz-Protocol/uniswap_proposal_simulation#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.1",
