@@ -61,8 +61,6 @@ describe("Uniswap v4 core license date change", async () => {
     const LABEL = keccak256(utils.toUtf8Bytes("v4-core-license-date"));
     const OWNER_UNISWAP_GOVERNANCE_TIMELOCK =
       "0x1a9C8182C09F50C8318d769245beA52c32BE35BC";
-    const RESOLVER_PUBLIC_ENS_RESOLVER =
-      "0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41";
 
     const NODE = namehash("v4-core-license-date.uniswap.eth");
     const KEY = "Change Date";
@@ -75,7 +73,7 @@ describe("Uniswap v4 core license date change", async () => {
         NODE_TOP_LEVEL,
         LABEL,
         OWNER_UNISWAP_GOVERNANCE_TIMELOCK,
-        RESOLVER_PUBLIC_ENS_RESOLVER,
+        PUBLIC_ENS_RESOLVER_ADDRESS,
         TTL,
       ]
     );
@@ -86,11 +84,19 @@ describe("Uniswap v4 core license date change", async () => {
       [NODE, KEY, VALUE]
     );
 
-    const targets = [RESOLVER_PUBLIC_ENS_RESOLVER, ENS_REGISTRY_ADDRESS];
+    const targets = [ENS_REGISTRY_ADDRESS, PUBLIC_ENS_RESOLVER_ADDRESS];
     const values = [0, 0];
     const sigs = ["", ""];
     const calldatas = [setSubnodeRecordCalldata, setTextCalldata];
     const description = "Change GPL Date ...";
+
+    const governorBravoInterface = new Interface(GOVERNOR_BRAVO_ABI);
+    const proposalCalldata = governorBravoInterface.encodeFunctionData(
+      "propose",
+      [targets, values, sigs, calldatas, description]
+    );
+
+    console.log(proposalCalldata);
 
     const michiganAddress = "0x13BDaE8c5F0fC40231F0E6A4ad70196F59138548";
     // delegate votes from whales to the wallet
@@ -187,7 +193,7 @@ describe("Uniswap v4 core license date change", async () => {
     expect(subnodeRecordExists).to.equal(true);
 
     // check if the text record was set
-    const recordExists = ensRegistry.recordExists(NODE);
+    const recordExists = await ensRegistry.recordExists(NODE);
     expect(recordExists).to.equal(true);
     expect(licenseText).to.equal(VALUE);
   });

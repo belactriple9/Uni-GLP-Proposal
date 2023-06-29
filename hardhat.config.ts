@@ -28,7 +28,7 @@ const config: HardhatUserConfig = {
     hardhat: {
       forking: {
         // @ts-ignore
-        url: `http://127.0.0.1:8545/`, // process.env.MAINNET_URL,
+        url: `http://cloudflare-eth.com`, // process.env.MAINNET_URL,
         blockNumber: 17564694,
       },
     },
